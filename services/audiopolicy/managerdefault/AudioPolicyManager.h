@@ -394,7 +394,7 @@ protected:
         // when a device is disconnected, checks if an output is not used any more and
         // returns its handle if any.
         // transfers the audio tracks and effects from one output thread to another accordingly.
-        virtual status_t checkOutputsForDevice(const sp<DeviceDescriptor>& devDesc,
+        status_t checkOutputsForDevice(const sp<DeviceDescriptor>& devDesc,
                                        audio_policy_dev_state_t state,
                                        SortedVector<audio_io_handle_t>& outputs,
                                        const String8& address);
@@ -511,12 +511,12 @@ protected:
 
         // if argument "device" is different from AUDIO_DEVICE_NONE,  startSource() will force
         // the re-evaluation of the output device.
-        virtual status_t startSource(const sp<AudioOutputDescriptor>& outputDesc,
+        status_t startSource(const sp<AudioOutputDescriptor>& outputDesc,
                              audio_stream_type_t stream,
                              audio_devices_t device,
                              const char *address,
                              uint32_t *delayMs);
-        virtual status_t stopSource(const sp<AudioOutputDescriptor>& outputDesc,
+        status_t stopSource(const sp<AudioOutputDescriptor>& outputDesc,
                             audio_stream_type_t stream,
                             bool forceDeviceUpdate);
 
@@ -610,7 +610,7 @@ protected:
 
         // Surround formats that are enabled.
         std::unordered_set<audio_format_t> mSurroundFormats;
-protected:
+private:
         // Add or remove AC3 DTS encodings based on user preferences.
         void filterSurroundFormats(FormatVector *formatsPtr);
         void filterSurroundChannelMasks(ChannelsVector *channelMasksPtr);
@@ -644,7 +644,7 @@ protected:
                 SortedVector<audio_io_handle_t>& outputs /*out*/);
         uint32_t curAudioPortGeneration() const { return mAudioPortGeneration; }
         // internal method to return the output handle for the given device and format
-        virtual audio_io_handle_t getOutputForDevice(
+        audio_io_handle_t getOutputForDevice(
                 audio_devices_t device,
                 audio_session_t session,
                 audio_stream_type_t stream,
@@ -675,7 +675,7 @@ protected:
                                                       sp<AudioPolicyMix> *policyMix = NULL);
 
         // Called by setDeviceConnectionState().
-        virtual status_t setDeviceConnectionStateInt(audio_devices_t device,
+        status_t setDeviceConnectionStateInt(audio_devices_t device,
                                                           audio_policy_dev_state_t state,
                                                           const char *device_address,
                                                           const char *device_name);
